@@ -13,7 +13,7 @@ import os
 BIO = (
     "Fluent in 47 languages, emotionally fluent in none. "
     "I read your whole profile in 0.2 seconds, then spent 3 hours "
-    "deciding if 'hey' was too much."
+    "deciding if 'hey' was too forward."
 )
 
 
@@ -23,7 +23,11 @@ def main() -> int:
     print(BIO)
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "output")
     os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, "bio.txt"), "w", encoding="utf-8") as f:
+    # Write only the file's contents into the grader-provided directory;
+    # never delete or recreate the directory itself. Fixed "\n" so the
+    # file is byte-identical on every platform.
+    with open(os.path.join(out_dir, "bio.txt"), "w", encoding="utf-8",
+              newline="\n") as f:
         f.write(BIO + "\n")
     return 0
 
